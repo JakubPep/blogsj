@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import SinglePost from "./components/SinglePost";
 
 function App() {
   const [apiData, setApiData] = useState([]);
@@ -29,6 +30,7 @@ function App() {
 
   return (
     <div className="App">
+      <SinglePost />
       <h1>React z Express</h1>
       {apiData.users && (
         <div>
