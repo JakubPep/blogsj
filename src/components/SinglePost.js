@@ -2,8 +2,7 @@ import React from 'react';
 
 const SinglePost = () => {
 
-
-
+// Tutaj powinny znaleźć się funkcje i cała logika używana w komponencie
 
     return(
         <>
