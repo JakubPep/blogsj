@@ -4,7 +4,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 const Home = () => {
-  const { data, setData, fetchData, isLogged } = useData();
+  const { data, setData, fetchData } = useData();
   const { users, posts, comments } = data;
   const [nazwaKom, setNazwaKom] = useState("");
   const [trescKom, setTrescKom] = useState("");
@@ -21,7 +21,7 @@ const Home = () => {
         "http://localhost:5000/api/comments",
         newComment
       );
-      // Aktualizuj stan danych po dodaniu nowego komentarza
+      // Aktualizuje stan danych po dodaniu nowego komentarza
       setData((prevData) => ({
         ...prevData,
         comments: [...prevData.comments, response.data],
@@ -29,19 +29,27 @@ const Home = () => {
 
       fetchData();
 
-      // Czyść pola formularza po dodaniu komentarza
+      // Czyści pola formularza po dodaniu komentarza
       window.location.reload();
     } catch (error) {
       console.error("Error:", error);
     }
   };
 
+  const handleLogout = () => {
+    localStorage.setItem("isLogged", false);
+    window.location.reload();
+  };
+
   return (
     <>
       <div className="Home">
         <h1>Super ekstra blogas</h1>
-        {isLogged ? (
-          <h1>Zalogowany jako (nazwa zalogowanego użytkownika)</h1> // Wyświetlamy tekst zalogowanego użytkownika
+        {(localStorage.getItem("isLogged") === "true") ? (
+          <>
+            <h2>Witaj!</h2>
+            <button onClick={handleLogout}>Wyloguj</button>
+          </>
         ) : (
           <div>
             <Link to="/login">
