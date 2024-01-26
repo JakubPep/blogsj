@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useData } from "../context/DataContext";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Home = () => {
-  const { data, setData, fetchData } = useData();
+  const { data, setData, fetchData, isLogged } = useData();
   const { users, posts, comments } = data;
   const [nazwaKom, setNazwaKom] = useState("");
   const [trescKom, setTrescKom] = useState("");
@@ -38,15 +39,32 @@ const Home = () => {
   return (
     <>
       <div className="Home">
-        <h1>Super ektra blogas</h1>
+        <h1>Super ekstra blogas</h1>
+        {isLogged ? (
+          <h1>Zalogowany jako (nazwa zalogowanego użytkownika)</h1> // Wyświetlamy tekst zalogowanego użytkownika
+        ) : (
+          <div>
+            <Link to="/login">
+              <button>Zaloguj</button>
+            </Link>
+            <button>Zarejestruj</button>
+          </div>
+        )}
         {posts && (
           <div>
             <h2>Posty użytkowników</h2>
             <ul>
               {posts.map((post) => (
                 <li key={post.postID}>
-                  <h3><strong>{post.tytul}</strong></h3> <span>(Autor:{" "}
-                  {users.find((user) => user.userID === post.userID).nazwa})</span>
+                  <h3>
+                    <strong>{post.tytul}</strong>
+                  </h3>{" "}
+                  <span>
+                    (Autor:{" "}
+                    <Link to={`/user/${post.userID}`}>
+                      {users.find((user) => user.userID === post.userID).nazwa})
+                    </Link>
+                  </span>
                   <p>{post.tresc}</p>
                   <p>
                     Liczba wyświetleń: {post.wysw}, Polubienia: {post.polub}

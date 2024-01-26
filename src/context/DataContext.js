@@ -13,6 +13,7 @@ const initialDataState = {
 
 export const DataProvider = ({ children }) => {
   const [data, setData] = useState(initialDataState);
+  const [isLogged, setIsLogged] = useState(false);
 
   useEffect(() => {
     fetchData(); // Pobierz dane z serwera przy pierwszym renderowaniu komponentu
@@ -20,15 +21,17 @@ export const DataProvider = ({ children }) => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/data');
+      const response = await axios.get("http://localhost:5000/api/data");
       setData(response.data);
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
     }
   };
 
   return (
-    <DataContext.Provider value={{ data, setData, fetchData }}>
+    <DataContext.Provider
+      value={{ data, setData, fetchData, isLogged, setIsLogged }}
+    >
       {children}
     </DataContext.Provider>
   );

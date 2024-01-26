@@ -55,6 +55,24 @@ app.post("/api/comments", (req, res) => {
   res.json({ message: "Komentarz został dodany", comments });
 });
 
+
+//logowanie
+app.post('/api/login', (req, res) => {
+  const { email, haslo } = req.body;
+
+  // Weryfikacja danych logowania na podstawie danych użytkowników w bazie danych
+  const user = users.find((user) => user.email === email && user.haslo === haslo);
+
+  if (user) {
+    // Logowanie poprawne
+    res.status(200).send({ success: true, message: 'Logowanie poprawne' });
+  } else {
+    // Logowanie nieudane
+    res.status(401).send({ success: false, message: 'Błędne dane logowania' });
+  }
+});
+
+
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
