@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useData } from "../context/DataContext";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import '../styles/home.css'; 
 
 const Home = () => {
   const { data, setData, fetchData, isLogged } = useData();
