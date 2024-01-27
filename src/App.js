@@ -5,21 +5,23 @@ import Home from "./pages/Home";
 import UserPage from "./pages/UserPage";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import NewPost from "./pages/NewPost";
 import "./styles/app.css";
 
 function App() {
-    return (
-        <Router>
-            <DataProvider>
-                <Routes>
-                    <Route path="/" exact element={<Home />} />
-                    <Route path="/user/:userID" element={<UserPage />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/register" element={<Register />} />
-                </Routes>
-            </DataProvider>
-        </Router>
-    );
+  return (
+    <Router>
+      <DataProvider>
+        <Routes>
+          <Route path="/" exact element={<Home />} />
+          <Route path="/user/:userID" element={<UserPage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/new_post" element={<NewPost />} />
+        </Routes>
+      </DataProvider>
+    </Router>
+  );
 }
 
 export default App;

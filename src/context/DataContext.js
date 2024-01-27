@@ -13,7 +13,6 @@ const initialDataState = {
 
 export const DataProvider = ({ children }) => {
   const [data, setData] = useState(initialDataState);
-  const [isLogged, setIsLogged] = useState(false);
 
   useEffect(() => {
     fetchData(); // Pobierz dane z serwera przy pierwszym renderowaniu komponentu
@@ -30,7 +29,7 @@ export const DataProvider = ({ children }) => {
 
   return (
     <DataContext.Provider
-      value={{ data, setData, fetchData, isLogged, setIsLogged }}
+      value={{ data, setData, fetchData }}
     >
       {children}
     </DataContext.Provider>

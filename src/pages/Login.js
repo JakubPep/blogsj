@@ -1,40 +1,55 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useData } from "../context/DataContext";
 
 const Login = () => {
-  const { setIsLogged } = useData();
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [haslo, setHaslo] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const handleLogin = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
       const response = await axios.post("http://localhost:5000/api/login", {
         email,
-        password,
+        haslo,
       });
-      console.log(response.data);
-      setIsLogged(true);
+      if (response.data.success) {
+        localStorage.setItem("isLogged", true);
+        localStorage.setItem("userID", response.data.userID);
+        window.location.href = "/";
+      } else {
+        setErrorMessage("Niepoprawne dane logowania");
+      }
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Błąd:", error);
     }
   };
 
   return (
     <div>
-      <input
-        type="text"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button onClick={handleLogin}>Login</button>
+      <h2>Logowanie</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Email:</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label>Hasło:</label>
+          <input
+            type="password"
+            value={haslo}
+            onChange={(e) => setHaslo(e.target.value)}
+            required
+          />
+        </div>
+        <button type="submit">Zaloguj</button>
+      </form>
+      {errorMessage && <p>{errorMessage}</p>}
     </div>
   );
 };
