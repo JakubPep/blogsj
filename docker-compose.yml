@@ -1,14 +1,18 @@
 version: '3.8'
 
 services:
-  client:
-    build: .
+  react-app:
+    build:
+      context: .
+      dockerfile: Dockerfile.react
     ports:
       - "3000:3000"
     depends_on:
-      - server
+      - express-server
 
-  server:
-    build: .
+  express-server:
+    build:
+      context: .
+      dockerfile: Dockerfile.express
     ports:
       - "5000:5000"

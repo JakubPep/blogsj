@@ -1,0 +1,17 @@
+# Użyj oficjalnego obrazu Node.js jako podstawowego obrazu
+FROM node:14
+
+# Ustaw katalog roboczy w kontenerze
+WORKDIR /app/server
+
+# Skopiuj pliki package.json i package-lock.json do katalogu roboczego
+COPY package*.json ./
+
+# Zainstaluj zależności, w tym express i cors
+RUN npm install
+
+# Skopiuj pozostałe pliki do katalogu roboczego
+COPY . .
+
+# Egzekwuj plik server.js
+CMD ["node", "server.js"]
