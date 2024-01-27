@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import UserPage from "./pages/UserPage";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import NewPost from "./pages/NewPost";
 import "./styles/app.css";
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
           <Route path="/user/:userID" element={<UserPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/new_post" element={<NewPost />} />
         </Routes>
       </DataProvider>
     </Router>

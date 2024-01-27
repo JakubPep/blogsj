@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useData } from "../context/DataContext";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -8,6 +8,15 @@ const Home = () => {
   const { users, posts, comments } = data;
   const [nazwaKom, setNazwaKom] = useState("");
   const [trescKom, setTrescKom] = useState("");
+  const [loggedInUserName, setLoggedInUserName] = useState("");
+
+  useEffect(() => {
+    if (localStorage.getItem("isLogged") === "true") {
+      const userID = localStorage.getItem("userID");
+      const loggedInUser = users.find((user) => user.userID === parseInt(userID));
+      setLoggedInUserName(loggedInUser?.nazwa);
+    }
+  }, [users]);
 
   const handleAddComment = async (postID) => {
     try {
@@ -47,8 +56,9 @@ const Home = () => {
         <h1>Super ekstra blogas</h1>
         {localStorage.getItem("isLogged") === "true" ? (
           <>
-            <h2>Witaj!</h2>
+            <h2>Witaj, {loggedInUserName}!</h2>
             <button onClick={handleLogout}>Wyloguj</button>
+            <Link to="/new_post">Nowy post</Link>
           </>
         ) : (
           <div>

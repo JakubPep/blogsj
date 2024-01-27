@@ -110,11 +110,29 @@ app.post("/api/login", (req, res) => {
 
   if (user) {
     // Logowanie poprawne
-    res.status(200).send({ success: true, message: "Logowanie poprawne" });
+    res
+      .status(200)
+      .send({
+        success: true,
+        message: "Logowanie poprawne",
+        userID: user.userID,
+      });
   } else {
     // Logowanie nieudane
     res.status(401).send({ success: false, message: "Błędne dane logowania" });
   }
+});
+
+app.post("/api/posts", (req, res) => {
+  const newPost = {
+    postID: posts.length + 1,
+    userID: req.body.userID,
+    tytul: req.body.tytul,
+    tresc: req.body.tresc,
+    polub: 0,
+  };
+  posts.push(newPost);
+  res.json({ message: "Post został dodany", newPost });
 });
 
 app.listen(port, () => {

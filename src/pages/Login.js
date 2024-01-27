@@ -15,6 +15,7 @@ const Login = () => {
       });
       if (response.data.success) {
         localStorage.setItem("isLogged", true);
+        localStorage.setItem("userID", response.data.userID);
         window.location.href = "/";
       } else {
         setErrorMessage("Niepoprawne dane logowania");
