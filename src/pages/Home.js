@@ -45,17 +45,15 @@ const Home = () => {
     <>
       <div className="Home">
         <h1>Super ekstra blogas</h1>
-        {(localStorage.getItem("isLogged") === "true") ? (
+        {localStorage.getItem("isLogged") === "true" ? (
           <>
             <h2>Witaj!</h2>
             <button onClick={handleLogout}>Wyloguj</button>
           </>
         ) : (
           <div>
-            <Link to="/login">
-              <button>Zaloguj</button>
-            </Link>
-            <button>Zarejestruj</button>
+            <Link to="/login">Zaloguj</Link>
+            <Link to="/register">Zarejestruj</Link>
           </div>
         )}
         {posts && (
@@ -74,9 +72,7 @@ const Home = () => {
                     </Link>
                   </span>
                   <p>{post.tresc}</p>
-                  <p>
-                    Liczba wyświetleń: {post.wysw}, Polubienia: {post.polub}
-                  </p>
+                  <p>Polubienia: {post.polub}</p>
                   <h3>Komentarze:</h3>
                   <ul>
                     {comments
