@@ -1,0 +1,16 @@
+FROM node:14 as build
+
+# Ustawienie katalogu roboczego w kontenerze
+WORKDIR /app
+
+# Skopiowanie plików projektu do kontenera
+COPY . .
+
+# Instalacja zależności
+RUN npm install
+
+# Konfiguracja portu
+EXPOSE 3000
+
+# Uruchomienie serwera Nginx w trybie daemon
+CMD ["npm", "start"]
