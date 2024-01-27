@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useData } from "../context/DataContext";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import "../styles/home.css";
 
 const Home = () => {
   const { data, setData, fetchData } = useData();
@@ -13,18 +14,31 @@ const Home = () => {
   useEffect(() => {
     if (localStorage.getItem("isLogged") === "true") {
       const userID = localStorage.getItem("userID");
-      const loggedInUser = users.find((user) => user.userID === parseInt(userID));
+      const loggedInUser = users.find(
+        (user) => user.userID === parseInt(userID)
+      );
       setLoggedInUserName(loggedInUser?.nazwa);
+      localStorage.setItem("loggedInUserName", loggedInUser?.nazwa);
     }
   }, [users]);
 
-    const handleAddComment = async (postID) => {
-        try {
-            const newComment = {
-                postID,
-                nazwaKom,
-                trescKom,
-            };
+  useEffect(() => {
+    if (localStorage.getItem("isLogged") === "true") {
+      const userID = localStorage.getItem("userID");
+      const loggedInUser = users.find(
+        (user) => user.userID === parseInt(userID)
+      );
+      setLoggedInUserName(loggedInUser?.nazwa);
+    }
+  }, [posts]);
+
+  const handleAddComment = async (postID) => {
+    try {
+      const newComment = {
+        postID,
+        nazwaKom,
+        trescKom,
+      };
 
       const response = await axios.post(
         "http://localhost:5000/api/comments",
@@ -36,7 +50,7 @@ const Home = () => {
         comments: [...prevData.comments, response.data],
       }));
 
-            fetchData();
+      fetchData();
 
       // Czyści pola formularza po dodaniu komentarza
       window.location.reload();
@@ -48,15 +62,15 @@ const Home = () => {
   const handleLogout = () => {
     localStorage.setItem("isLogged", false);
     window.location.reload();
+    localStorage.setItem("loggedInUserName", "");
   };
 
   return (
     <>
-      <div className="Home">
-        <h1>Super ekstra blogas</h1>
+      <div className="home">
         {localStorage.getItem("isLogged") === "true" ? (
           <>
-            <h2>Witaj, {loggedInUserName}!</h2>
+            {loggedInUserName && <h2>Witaj, {loggedInUserName}!</h2>}
             <button onClick={handleLogout}>Wyloguj</button>
             <Link to="/new_post">Nowy post</Link>
           </>
@@ -66,6 +80,7 @@ const Home = () => {
             <Link to="/register">Zarejestruj</Link>
           </div>
         )}
+        <h1>Super ekstra blogas</h1>
         {posts && (
           <div>
             <h2>Posty użytkowników</h2>
@@ -78,8 +93,10 @@ const Home = () => {
                   <span>
                     (Autor:{" "}
                     <Link to={`/user/${post.userID}`}>
-                      {users.find((user) => user.userID === post.userID).nazwa})
+                      {users.find((user) => user.userID === post.userID)
+                        ?.nazwa || "Nieznany"}
                     </Link>
+                    )
                   </span>
                   <p>{post.tresc}</p>
                   <p>Polubienia: {post.polub}</p>

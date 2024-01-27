@@ -26,7 +26,6 @@ const posts = [
     tytul: "Podróż do Grecji",
     tresc:
       "Odwiedzając Grecję, wchodzisz na ziemię mitów i bogów. Błękit Egejskiego morza, białe domy Santorini, i smak souvlaków tworzą niezapomnianą podróż. Zabytki, jak Partenon w Atenach, przypominają o bogatej historii. Lokalna kuchnia zachwyca, a gościnność Greków sprawia, że czujesz się jak w domu. Grecja to nie tylko podróż, to magiczne doświadczenie. #Grecja #Podróż #Odkrywanie",
-    data: "",
     polub: 40,
   },
   {
@@ -35,7 +34,6 @@ const posts = [
     tytul: "Maraton w Olimpii - Bieg przez historię",
     tresc:
       "Wziąłem udział w maratonie w Olimpii, miejscu narodzin igrzysk olimpijskich. Biegając przez starożytne aleje, poczułem ducha historycznego współzawodnictwa. Niezapomniane doświadczenie!",
-    data: "",
     polub: 50,
   },
 ];
@@ -58,17 +56,17 @@ const comments = [
 ];
 
 app.get("/", (req, res) => {
-    res.json({ message: "Hello World" });
+  res.json({ message: "Hello World" });
 });
 
 app.get("/api/data", (req, res) => {
-    res.json({ users, posts, comments });
+  res.json({ users, posts, comments });
 });
 
 app.post("/api/data", (req, res) => {
-    const newData = req.body.newData;
-    data.push(newData);
-    res.json({ message: "Dane zostały dodane", data });
+  const newData = req.body.newData;
+  data.push(newData);
+  res.json({ message: "Dane zostały dodane", data });
 });
 
 app.post("/api/users", (req, res) => {
@@ -89,14 +87,14 @@ app.post("/api/users", (req, res) => {
 });
 
 app.post("/api/comments", (req, res) => {
-    const newComment = {
-        komID: comments.length + 1,
-        postID: req.body.postID,
-        nazwaKom: req.body.nazwaKom,
-        trescKom: req.body.trescKom,
-    };
-    comments.push(newComment);
-    res.json({ message: "Komentarz został dodany", comments });
+  const newComment = {
+    komID: comments.length + 1,
+    postID: req.body.postID,
+    nazwaKom: req.body.nazwaKom,
+    trescKom: req.body.trescKom,
+  };
+  comments.push(newComment);
+  res.json({ message: "Komentarz został dodany", comments });
 });
 
 //logowanie
@@ -110,13 +108,11 @@ app.post("/api/login", (req, res) => {
 
   if (user) {
     // Logowanie poprawne
-    res
-      .status(200)
-      .send({
-        success: true,
-        message: "Logowanie poprawne",
-        userID: user.userID,
-      });
+    res.status(200).send({
+      success: true,
+      message: "Logowanie poprawne",
+      userID: user.userID,
+    });
   } else {
     // Logowanie nieudane
     res.status(401).send({ success: false, message: "Błędne dane logowania" });
@@ -131,10 +127,16 @@ app.post("/api/posts", (req, res) => {
     tresc: req.body.tresc,
     polub: 0,
   };
+
+  const user = users.find((user) => user.userID === req.body.userID);
+  if (user) {
+    newPost.nazwa = user.nazwa; // Przypisanie nazwy użytkownika do nowego postu
+  }
+
   posts.push(newPost);
   res.json({ message: "Post został dodany", newPost });
 });
 
 app.listen(port, () => {
-    console.log(`Server is running at http://localhost:${port}`);
+  console.log(`Server is running at http://localhost:${port}`);
 });

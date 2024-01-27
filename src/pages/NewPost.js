@@ -5,13 +5,17 @@ const NewPost = () => {
   const [tytul, setTytul] = useState("");
   const [tresc, setTresc] = useState("");
 
+  const loggedInUserName = localStorage.getItem("loggedInUserName");
+  const loggedInUser = localStorage.getItem("userID");
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const newPost = {
         tytul,
         tresc,
-        userID: localStorage.getItem("userID"), // Pobieramy userID z localstorage
+        nazwa: loggedInUserName,
+        userID: parseInt(loggedInUser), // Pobieramy userID z localstorage
       };
 
       const response = await axios.post(
@@ -19,9 +23,11 @@ const NewPost = () => {
         newPost
       );
 
-      console.log(response.data); // Opcjonalne - wyświetlenie danych zwróconych przez serwer po dodaniu postu
+      console.log(response);
 
-      window.location.href = "/";
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 1000);
     } catch (error) {
       console.error("Błąd:", error);
     }
