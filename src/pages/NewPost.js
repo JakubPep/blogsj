@@ -21,9 +21,7 @@ const NewPost = () => {
 
       console.log(response.data); // Opcjonalne - wyświetlenie danych zwróconych przez serwer po dodaniu postu
 
-      // Czyszczenie pól formularza po dodaniu postu
-      setTytul("");
-      setTresc("");
+      window.location.href = "/";
     } catch (error) {
       console.error("Błąd:", error);
     }
