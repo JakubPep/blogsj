@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import "../styles/newPost.css";
 
 const NewPost = () => {
   const [tytul, setTytul] = useState("");

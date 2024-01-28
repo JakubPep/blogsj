@@ -1,0 +1,49 @@
+.register {
+    max-width: 400px;
+    margin: 100px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+    .register h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .register form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .register label {
+        margin-bottom: 5px;
+    }
+
+    .register input[type="text"],
+    .register input[type="email"],
+    .register input[type="password"],
+    .register button {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .register button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+    }
+
+        .register button:hover {
+            background-color: #0056b3;
+        }
+
+    .register p {
+        color: red;
+        margin-top: 10px;
+    }

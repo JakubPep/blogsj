@@ -5,22 +5,22 @@
     padding: 20px;
 }
 
-    .home h1 {                          /* nazwa strony */
+    .home h1 {
         text-align: center;
-        margin-bottom: 20px; 
+        margin-bottom: 20px;
     }
 
-    .home button {                      /* przycisk zaloguj */
+    .home button {
         background-color: #007bff;
         color: #fff;
         border: none;
-        padding: 10px 20px;
-        margin: 0 5px; 
+        padding: 8px 16px;
+        margin: 0 5px;
         cursor: pointer;
     }
 
         .home button:first-child {
-            margin-right: 10px; 
+            margin-right: 10px;
         }
 
         .home button:hover {
@@ -31,12 +31,12 @@
     .home button {
         width: calc(50% - 5px);
         padding: 10px;
-        display: block; 
-        margin-bottom: 10px; 
+        display: block;
+        margin-bottom: 10px;
     }
 
     .home button {
-        margin-top: 0px; 
+        margin-top: 0px;
     }
 
     .home ul {
@@ -63,5 +63,5 @@
     }
 
         .home a:hover {
-            text-decoration: underline; /* podkreślenie po najechaniu myszką */
+            text-decoration: underline;
         }
