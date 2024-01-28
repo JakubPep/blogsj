@@ -35,7 +35,7 @@ const NewPost = () => {
   };
 
   return (
-    <div>
+    <div className="new-post">
       <h2>Nowy post</h2>
       <form onSubmit={handleSubmit}>
         <div>

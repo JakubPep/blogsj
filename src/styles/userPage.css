@@ -26,12 +26,13 @@
         border-radius: 5px;
     }
 
-    .user-page button {
+    .user-page button, .go-back-button {
         background-color: #007bff;
         color: #fff;
         border: none;
         padding: 10px 20px;
         cursor: pointer;
+        text-decoration: none;
     }
 
         .user-page button:hover {

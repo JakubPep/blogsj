@@ -137,6 +137,20 @@ app.post("/api/posts", (req, res) => {
   res.json({ message: "Post został dodany", newPost });
 });
 
+app.post("/api/posts/:postID/like", (req, res) => {
+  const postID = req.params.postID;
+  const post = posts.find((post) => post.postID === parseInt(postID));
+
+  if (!post) {
+    return res.status(404).json({ message: "Post o podanym ID nie istnieje" });
+  }
+
+  // Aktualizuj liczbę polubień posta
+  post.polub++;
+
+  return res.json({ message: "Polubienie zostało dodane", post });
+});
+
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });

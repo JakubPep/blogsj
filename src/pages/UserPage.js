@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useData } from "../context/DataContext";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import '../styles/userPage.css'
+import { Link } from "react-router-dom";
 
 const UserPage = () => {
   const { userID } = useParams();
@@ -46,6 +48,8 @@ const UserPage = () => {
 
   return (
     <>
+    <div className="user-page">
+      <Link to="/" className="go-back-button">Strona główna</Link>
       <h2>Posty użytkownika {userName}</h2>
       {posts
         .filter((post) => post.userID === parseInt(userID))
@@ -91,6 +95,7 @@ const UserPage = () => {
             </div>
           </div>
         ))}
+        </div>
     </>
   );
 };

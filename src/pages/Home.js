@@ -65,17 +65,33 @@ const Home = () => {
     localStorage.setItem("loggedInUserName", "");
   };
 
+  const handleLike = async (postID) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:5000/api/posts/${postID}/like`
+      );
+
+      fetchData();
+    } catch (error) {
+      console.error("Błąd:", error);
+    }
+  };
+
   return (
     <>
       <div className="home">
         {localStorage.getItem("isLogged") === "true" ? (
           <>
             {loggedInUserName && <h2>Witaj, {loggedInUserName}!</h2>}
-            <button onClick={handleLogout}>Wyloguj</button>
-            <Link to="/new_post">Nowy post</Link>
+            <div className="home-action-btns">
+              <Link to="/new_post" className="new-post-btn">
+                Nowy post
+              </Link>
+              <button onClick={handleLogout}>Wyloguj</button>
+            </div>
           </>
         ) : (
-          <div>
+          <div className="log-reg-buttons">
             <Link to="/login">Zaloguj</Link>
             <Link to="/register">Zarejestruj</Link>
           </div>
@@ -100,6 +116,7 @@ const Home = () => {
                   </span>
                   <p>{post.tresc}</p>
                   <p>Polubienia: {post.polub}</p>
+                  <button onClick={() => handleLike(post.postID)}>Polub</button>
                   <h3>Komentarze:</h3>
                   <ul>
                     {comments
@@ -111,15 +128,18 @@ const Home = () => {
                         </li>
                       ))}
                   </ul>
-                  <div>
+                  <div className="new-comment">
                     <input
                       type="text"
                       placeholder="Twoja nazwa"
                       onChange={(e) => setNazwaKom(e.target.value)}
                     />
-                    <input
-                      type="text"
+                    <textarea
+                      className="new-comment-text"
+                      type="textarea"
                       placeholder="Treść komentarza"
+                      rows="6"
+                      cols="50"
                       onChange={(e) => setTrescKom(e.target.value)}
                     />
                     <button
